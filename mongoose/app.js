@@ -4,8 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 // const bcryptjs = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
-const cors = require("cors");
+// const cookieParser = require('cookie-parser');
+// const cors = require("cors");
 
 const app = express();
 
@@ -16,80 +16,80 @@ require('./db/conn');
 // const port = process.env.PORT;
 
 app.use(express.json());
-app.use(express.urlencoded({extended : true}));
-app.use(cookieParser());
-app.use(cors());
+// app.use(express.urlencoded({extended : true}));
+// app.use(cookieParser());
+// app.use(cors());
 
 
 // Require Model
 const Users = require('./models/userSchema');
 
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 
-app.post('/register', async (req, res)=>{
-    try {
-        // Get body or Data
-        const username = req.body.username;
-        const email = req.body.email;
-        const password = req.body.password;
+// app.post('/register', async (req, res)=>{
+//     try {
+//         // Get body or Data
+//         const username = req.body.username;
+//         const email = req.body.email;
+//         const password = req.body.password;
 
-        const createUser = new Users({
-            username : username,
-            email : email,
-            password : password
-        });
+//         const createUser = new Users({
+//             username : username,
+//             email : email,
+//             password : password
+//         });
 
-        const created = await createUser.save();
-        console.log(created);
-        res.status(200).send("Registered");
-        // res.render("secret");
+//         const created = await createUser.save();
+//         console.log(created);
+//         res.status(200).send("Registered");
+//         // res.render("secret");
 
 
-    } catch (error) {
-        res.status(400).send(error)
-    }
+//     } catch (error) {
+//         res.status(400).send(error)
+//     }
 
     // res.render("/Frontend/register")
-})
+// })
 
 //Login 
-app.post('/login', async (req, res)=>{
-    try{
-        const email = req.body.email;
-        const password = req.body.password;
+// app.post('/login', async (req, res)=>{
+//     try{
+//         const email = req.body.email;
+//         const password = req.body.password;
 
-        //Find User if Exist
-        const user = await Users.findOne({email:email});
-        if(user){
-            //verify password
-            // const isMatch = await bcryptjs.compare(password, user.password);
-            var isMatch = false;
-            if(password==user.password)
-            {
-                isMatch = true;
-            }
+//         //Find User if Exist
+//         const user = await Users.findOne({email:email});
+//         if(user){
+//             //verify password
+//             // const isMatch = await bcryptjs.compare(password, user.password);
+//             var isMatch = false;
+//             if(password==user.password)
+//             {
+//                 isMatch = true;
+//             }
 
-            if(isMatch){
-                // generate Token Which is Define in User Schema
-                // const token = await user.generateToken();
-                // res.cookie("jwt",token,{
-                //     expires : new Date(Date.now() + 86400000),
-                //     httpOnly : true
-                // })
-                res.status(200).send("LoggedIn")
-                // res.render("secret");
-            }
-            else{
-                res.status(400).send("Invalid Credentials");
-            }
-        }
-        else{
-            res.status(400).send("Invalid Credentials");
-        }
-    }catch(error){
-        res.status(400).send(error);
-    }
-})
+//             if(isMatch){
+//                 // generate Token Which is Define in User Schema
+//                 // const token = await user.generateToken();
+//                 // res.cookie("jwt",token,{
+//                 //     expires : new Date(Date.now() + 86400000),
+//                 //     httpOnly : true
+//                 // })
+//                 res.status(200).send("LoggedIn")
+//                 // res.render("secret");
+//             }
+//             else{
+//                 res.status(400).send("Invalid Credentials");
+//             }
+//         }
+//         else{
+//             res.status(400).send("Invalid Credentials");
+//         }
+//     }catch(error){
+//         res.status(400).send(error);
+//     }
+// })
 
 // app.get("/fatch",(req,res)=>{
 //     Users.find({})
